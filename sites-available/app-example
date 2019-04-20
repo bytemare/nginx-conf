@@ -1,0 +1,31 @@
+# Application
+upstream app_name {
+        server localhost:{local_application_port};
+}
+
+server {
+        listen 443 ssl http2;
+
+        server_name bytema.re;
+
+        include snippets/tls-all.conf;
+        include snippets/security-all.conf;
+        include snippets/performance-headers.conf;
+
+       
+        root /path/to/root;
+
+        location / {
+                proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+                proxy_set_header X-Forwarded-Proto $scheme;
+                proxy_set_header X-Real-IP $remote_addr;
+                proxy_set_header Host $http_host;
+                proxy_pass http://app_name/; 
+        }
+
+       location ~ /.well-known {
+                allow all;
+        }
+
+        client_max_body_size 50m;
+}
