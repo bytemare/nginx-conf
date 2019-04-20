@@ -2,25 +2,25 @@
 server {
         listen 443 ssl http2 default_server;
 
-	server_name www.bytema.re;
+	server_name www.{domain.tld};
 
         include snippets/tls-all.conf;
 	include snippets/security-all.conf;
         #include snippets/performance-headers.conf;
 
-        return 301 https://bytema.re$request_uri;
+        return 301 https://{domain.tld}$request_uri;
 }
 
 # Redirect specific standard www. from 80 to www. on 443 (https)
 server {
         listen 80;
-        server_name www.bytema.re;
+        server_name www.{domain.tld};
         return 301 https://$server_name$request_uri;
 }
 
 # Redirect http/80 to https/443
 server {
         listen 80 default_server;
-        server_name bytema.re;
+        server_name {domain.tld};
         return 301 https://$server_name$request_uri;
 }

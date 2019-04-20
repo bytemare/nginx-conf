@@ -6,7 +6,7 @@ upstream app_name {
 server {
         listen 443 ssl http2;
 
-        server_name bytema.re;
+        server_name {domain.tld};
 
         include snippets/tls-all.conf;
         include snippets/security-all.conf;
