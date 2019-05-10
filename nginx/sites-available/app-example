@@ -11,6 +11,7 @@ server {
         include snippets/tls-all.conf;
         include snippets/security-all.conf;
         include snippets/performance-headers.conf;
+        include snippets/security/csp/{app_name}-csp.conf;
 
        
         root /path/to/root;
@@ -20,12 +21,15 @@ server {
                 proxy_set_header X-Forwarded-Proto $scheme;
                 proxy_set_header X-Real-IP $remote_addr;
                 proxy_set_header Host $http_host;
-                proxy_pass http://app_name/; 
+                proxy_pass http://{app_name}/; 
         }
 
        location ~ /.well-known {
                 allow all;
         }
+
+        # This will deny access to any hidden file (beginning with a . ( period))
+        location ~ /\. { deny  all; }
 
         client_max_body_size 50m;
 }
