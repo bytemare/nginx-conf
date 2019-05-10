@@ -40,7 +40,7 @@ rm $latest_backup
 mkdir -p $new_backup_dir
 
 # Copy targets
-for d in $target_directories; do
+for d in $targets; do
         cp -r $nginx_root/$d $new_backup_dir
 done
 
