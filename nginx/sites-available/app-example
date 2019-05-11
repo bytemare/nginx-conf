@@ -1,6 +1,6 @@
 # Application
 upstream app_name {
-        server localhost:{local_application_port};
+        server {local_application_address}:{local_application_port};
 }
 
 server {
@@ -8,7 +8,7 @@ server {
 
         server_name {domain.tld};
 
-        include snippets/tls-all.conf;
+        include snippets/tls-general.conf;
         include snippets/security-all.conf;
         include snippets/performance-headers.conf;
         include snippets/security/csp/{app_name}-csp.conf;
