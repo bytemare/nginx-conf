@@ -1,31 +1,44 @@
 # nginx-conf
 
-A security focused nginx configuration to protect apps and websites.
+A security focused nginx configuration to protect apps and websites and indications to create a neat and robust certificate signed byt Let's Encrypt to use with the server.
 
 A set of configuration files to allow easy integration of new apps, modular security and performance features, and easy debugging.
 
-WARNING : If you use these files, please consider understanding their effects. Use them wisely (and chown/chgrp/chmod accordingly).
+WARNING :
+
+- If you use these files, please consider understanding their effects. Use them wisely.
+- This server DOES NOT protect against vulnerabilities of the webapp your using behind the proxy, nor against misconfiguration of your machine
 
 ## Quick wins using this configuration
 
 - [x] Clear tree of linked files that is easy to maintain and update
-- [x] Easy inclusion of new apps behind nginx proxy
+- [x] Easy inclusion of new apps behind the nginx proxy
 - [x] High security features by default
-- High evaluation on popular web security scanning tools :
-  - Mozilla HTTP Observatory : 135
-  - SSLabs : A+
-  - Security Headers : A+
-  - Hardenize : All green
+- [x] Content Security Policy for a Ghost Blog
+
+High evaluation on popular web security scanning tools :
+
+- SSLabs : A+
+- Security Headers : A+
+- Hardenize : All green
+- Mozilla HTTP Observatory : 135
 
 ## Predefined redirections
 
 - [x] www to non-www
-- [x] http/80 to https/443
+- [x] http/80 to https/443, forcing all connections to be secured
 
-## Security Features
+## Robust Certificate
 
-- [x] Secure connections only through http/80 redirections to https/443
-- [ ] For OCSP Stapling, resolvers used are Cloudflare (1.1.1.1) and Quad9 (9.9.9.9) - but Google (8.8.8.8 and/or 8.8.4.4) would do well, too
+Joined is a certificate creation script, helping to create a robust certificate for your server.
+Make sure to understand how it works. You also may want to automate the renewal process, which can be included, but you'll have to integrate the steps concerning your DNS provider.
+
+- [x] Uses a 256-bit Elliptic Curve
+- [x] Auto-renewal
+- [x] Signed by Let's Encrypt
+- [x] Wildcard able certificate
+- [x] OCSP Must-Staple TLS extension
+- [x] Certificate Transparency TLS Extension
 
 ### TLS Configuration
 
@@ -49,7 +62,7 @@ WARNING : If you use these files, please consider understanding their effects. U
 - [x] XSS Protection
 - [x] No permitted Cross-Domain-Policies
 - [x] Download Options to noopen
-- [x] Refferer Policy and Feature Policy to absolut minimum (and easily configurable in snippets/security-rfp.conf)
+- [x] Refferer Policy and Feature Policy to absolut minimum
 
 ### Cookie Security
 
@@ -74,7 +87,11 @@ Tailored for a Ghost Blog
 - [x] Require SRI for scripts and styles
 - [x] no 'unsafe-eval' in script-src
 
-## Not includes Security features
+## Other Features
+
+- [x] For OCSP Stapling, resolvers used are Cloudflare (1.1.1.1) and Quad9 (9.9.9.9) - but Google (8.8.8.8 and/or 8.8.4.4) would do well, too
+
+## Not included Security features
 
 - X-Robots-Tag to none
 - Support for RSA certificate keys (if you have such - shame on you - simply change config accordingly in snippets/tls-params.conf)
@@ -82,6 +99,10 @@ Tailored for a Ghost Blog
 ## Recommendations
 
 - Run nginx as low-priviledged user (non-root) on higher, "userland" ports
+  - create a unique system account (e.g. "nginx", but not "nobody")
+    - groupadd -r nginx
+    - useradd nginx -r -g nginx -d /var/cache/nginx -s /sbin/nologin
+    - in nginx.conf : "user nginx;"
 - Use PF or iptables to redirect traffic from port 80 and 443 internally to nginx
 - Secure files correctly (change owner, group, and access modes)
 - Use an Elliptic Curve in your server certificate (e.g. Curve25519, or at least secp256k1)
