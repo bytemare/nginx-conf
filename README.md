@@ -16,7 +16,7 @@ WARNING :
 - [x] High security features by default
 - [x] Content Security Policy for a Ghost Blog
 
-High evaluation on popular web security scanning tools :
+Maximum score on popular web security scanning tools :
 
 - SSLabs : A+
 - Security Headers : A+
