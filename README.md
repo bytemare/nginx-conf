@@ -21,7 +21,7 @@ High evaluation on popular web security scanning tools :
 - SSLabs : A+
 - Security Headers : A+
 - Hardenize : All green
-- Mozilla HTTP Observatory : 135
+- Mozilla HTTP Observatory : 135/100
 
 ## Predefined redirections
 
