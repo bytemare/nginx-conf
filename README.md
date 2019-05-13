@@ -72,7 +72,7 @@ Make sure to understand how it works. You also may want to automate the renewal 
 - [x] value_locked
 - [x] Secure
 - [x] HttpOnly
-- [x] SameSite=Lax;
+- [x] SameSite=Strict;
 
 ### CSP - Content Security Policy
 
