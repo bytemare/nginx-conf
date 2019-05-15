@@ -23,11 +23,6 @@ Maximum score on popular web security scanning tools :
 - Hardenize : All green
 - Mozilla HTTP Observatory : 135/100
 
-## Predefined redirections
-
-- [x] www to non-www
-- [x] http/80 to https/443, forcing all connections to be secured
-
 ## Robust Certificate
 
 Joined is a certificate creation script, helping to create a robust certificate for your server.
@@ -36,11 +31,21 @@ Make sure to understand how it works. You also may want to automate the renewal 
 - [x] Uses a 256-bit Elliptic Curve
 - [x] Auto-renewal
 - [x] Signed by Let's Encrypt
-- [x] Wildcard able certificate
+- [x] Wildcard-able certificate
 - [x] OCSP Must-Staple TLS extension
 - [x] Certificate Transparency TLS Extension
 
-### TLS Configuration
+## Strong TLS configuration
+
+This configuration is made with paranoia. All configuration parameters are set to the most secure and resilient values. We also add some more layers of security with OCSP Stapling and HSTS.
+
+### Predefined redirections
+
+- [x] www/80 to www/443
+- [x] www/443 to non-www/443
+- [x] http/80 to https/443, forcing all connections to be secured
+
+### TLS Parameters
 
 - [x] Restrict to TLS 1.3 and TLS 1.2
 - [x] TLS Key Exchange restricted to ECDHE
@@ -54,6 +59,8 @@ Make sure to understand how it works. You also may want to automate the renewal 
 - [x] HSTS set to 1 year, including subdomains and preloading
 - [x] Expect-Staple set to 1 year, include subdomains and preload
 - [x] Expect-CT set to 1 year, enforced
+
+## Fully secured NGINX configuration
 
 ### Security Headers
 
@@ -103,9 +110,9 @@ Tailored for a Ghost Blog
     - groupadd -r nginx
     - useradd nginx -r -g nginx -d /var/cache/nginx -s /sbin/nologin
     - in nginx.conf : "user nginx;"
-- Use PF or iptables to redirect traffic from port 80 and 443 internally to nginx
+  - Use PF or iptables to redirect traffic from port 80 and 443 internally to nginx
 - Secure files correctly (change owner, group, and access modes)
-- Use an Elliptic Curve in your server certificate (e.g. Curve25519, or at least secp256k1)
+- If you don't use the given script for your certificates, use an Elliptic Curve in your server certificate (e.g. EdDSA when available, or at least secp256k1)
 - Must-Staple your server certificate
-- Enlist your top domain to the HSTS preload list
+- Enlist your top domain to the HSTS preload list and include all subdomains
 - Take some time to mess with your CSP
