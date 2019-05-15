@@ -79,7 +79,7 @@ This configuration is made with paranoia. All configuration parameters are set t
 - [x] value_locked
 - [x] Secure
 - [x] HttpOnly
-- [x] SameSite=Strict;
+- [x] SameSite=Strict
 
 ### CSP - Content Security Policy
 
