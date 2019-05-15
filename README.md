@@ -98,7 +98,7 @@ Tailored for a Ghost Blog
 
 - [x] For OCSP Stapling, resolvers used are Cloudflare (1.1.1.1) and Quad9 (9.9.9.9) - but Google (8.8.8.8 and/or 8.8.4.4) would do well, too
 
-## Not included Security features
+## Not included features
 
 - X-Robots-Tag to none
 - Support for RSA certificate keys (if you have such - shame on you - simply change config accordingly in snippets/tls-params.conf)
