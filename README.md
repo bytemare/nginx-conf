@@ -21,6 +21,7 @@ Maximum score on popular web security scanning tools :
 - SSLabs : A+
 - Security Headers : A+
 - Hardenize : All green
+- Google CSP Evaluator : All good
 - Mozilla HTTP Observatory : 135/100
 
 ## Robust Certificate
